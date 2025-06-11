@@ -8,11 +8,20 @@ const reservationSchema = new mongoose.Schema({
     },
     tableNo:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:table
+        ref:'table'
     },
     reservationDate:{
         type:Date,
         required:true
+    },
+    peopleCount:{
+        type:Number,
+        required:false,
+        default:1
+    },
+    status:{
+        type:String,
+        enum:['confirmed','cancelled']
     }
 
 });

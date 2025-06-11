@@ -1,4 +1,3 @@
-const { name } = require('ejs');
 const mongoose = require('mongoose');
 
 const tableSchema = new mongoose.Schema({
