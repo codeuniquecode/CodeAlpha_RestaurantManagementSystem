@@ -21,7 +21,8 @@ const reservationSchema = new mongoose.Schema({
     },
     status:{
         type:String,
-        enum:['confirmed','cancelled']
+        enum:['confirmed','cancelled'],
+        required:true
     }
 
 });
