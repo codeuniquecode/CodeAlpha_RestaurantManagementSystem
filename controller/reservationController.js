@@ -31,9 +31,12 @@ exports.reserveTable = async (req, res) => {
     try {
         const { userName, reservationDate, peopleCount, status } = req.body;
         const tableNo = req.query.id;
-
+        const reservedTable = await table.findOne({_id:tableNo,status:'available'});
         if (!tableNo) {
-            return res.status(400).json({ message: 'Table ID is missing in query' });
+            return res.status(404).json({ message: 'Table ID is missing in query' });
+        }
+        if(!reservedTable){
+            return res.status(404).json({message:"table is already reserved"});
         }
 
         const newReservation = await reservation.create({
@@ -56,9 +59,9 @@ exports.reserveTable = async (req, res) => {
 exports.cancelReservation = async(req,res)=>{
     try {
         const reservationId = req.query.id;
-        const reservedTable = await reservation.findOne({_id:reservationId}).populate('tableNo');
+       const reservedTable = await reservation.findOne({ _id: reservationId }).populate('tableNo');
         if(reservedTable.status==='confirmed'){
-            const data = await reservation.findOne({_id:req.query.id})
+            // const data = await reservation.findOne({_id:req.query.id})
             const updateReservation = await reservation.findByIdAndUpdate(reservationId,{
                 status:'cancelled'
             });

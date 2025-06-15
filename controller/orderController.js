@@ -10,6 +10,9 @@ exports.addOrder = async (req, res) => {
     //   tableNo: '684ab28c44a2bc1707e0f023'
     // }
     const { orderItems, tableNo } = req.body;
+    if(orderItems.length <1){
+        return res.status(404).json({message:"the order is empty"});
+    }
     const tableNumber = await table.findOne({
         _id: tableNo
     });
