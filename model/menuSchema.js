@@ -18,7 +18,22 @@ const menuSchema = new mongoose.Schema({
         type:String,
         enum:['Drinks','Momo','Khaja Set','Combo Platter'],
         required:false,
-    }
+    },
+    ingredients: [
+    {
+      item: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'inventory',
+        required: true
+      },
+      unit: {
+        type: String,
+        required: true
+      },
+      quantity: {
+        type: Number,
+        required: true
+      }}]
 
 });
 
