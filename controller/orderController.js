@@ -1,3 +1,4 @@
+const inventory = require("../model/inventorySchema");
 const menu = require("../model/menuSchema");
 const order = require("../model/orderSchema");
 const table = require("../model/tableSchema");
@@ -73,4 +74,22 @@ exports.viewOrder = async(req,res)=>{
         console.log(error);
         return res.status(404).json({message:"internal server error"})
     }
+}
+exports.orderInfo = async(req,res)=>{
+    // console.log(req.body);
+    const {orderItems} = req.body;
+    console.log(orderItems);
+    let itemData = [];
+    for(items of orderItems){
+         itemData = await menu.find({_id:items.items});
+          console.log(itemData);
+    }
+   
+    for(menuIng of itemData){
+        // const ingredientsData = await inventory.findById(menuIng.item)
+        // console.log(ingredientsData);
+        console.log(menuIng);
+    }
+
+    return res.status(200).json({message:"done"});
 }
